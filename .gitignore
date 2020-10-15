@@ -1,2 +1,5 @@
 # Project exclude paths
 /target/
+.idea/
+usermanagement.iml
+wildfly-21.0.0.Final/
