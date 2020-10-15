@@ -18,7 +18,7 @@ public class UserService implements Serializable {
     @Path("ping")
     @Produces(MediaType.APPLICATION_JSON)
     public Response ping() {
-        return Response.ok(new PingInfo("pinged at " + new Date())).build();
+        return Response.ok(new PingInfo("ping at " + new Date())).build();
     }
 
 
