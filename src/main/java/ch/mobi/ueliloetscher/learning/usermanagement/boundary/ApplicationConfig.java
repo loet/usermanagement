@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ch.mobi.ueliloetscher.learning.usermanagement;
+package ch.mobi.ueliloetscher.learning.usermanagement.boundary;
 
 import javax.ws.rs.core.Application;
 import java.util.Set;
@@ -19,7 +19,7 @@ public class ApplicationConfig extends Application {
     }
 
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(UserService.class);
+        resources.add(UserManagementRestResource.class);
     }
-    
+
 }

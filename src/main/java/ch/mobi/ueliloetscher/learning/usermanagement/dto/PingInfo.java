@@ -5,6 +5,9 @@ import java.io.Serializable;
 public class PingInfo implements Serializable {
     private String info;
 
+    public PingInfo() {
+    }
+
     public PingInfo(String info) {
         this.info = info;
     }
