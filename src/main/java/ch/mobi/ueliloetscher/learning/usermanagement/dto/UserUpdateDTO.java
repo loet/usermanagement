@@ -2,12 +2,14 @@ package ch.mobi.ueliloetscher.learning.usermanagement.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 
 public class UserUpdateDTO implements Serializable {
 
-    @NotBlank(message = "id is required")
-    private String id;
+    @NotNull(message = "id is required")
+    private Long id;
     private String firstName;
     @NotBlank(message = "lastName is required")
     private String lastName;
@@ -17,18 +19,18 @@ public class UserUpdateDTO implements Serializable {
     public UserUpdateDTO() {
     }
 
-    public UserUpdateDTO(String id, String firstName, String lastName, String email) {
+    public UserUpdateDTO(Long id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

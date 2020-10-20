@@ -1,28 +1,30 @@
-package ch.mobi.ueliloetscher.learning.usermanagement.dto;
+package ch.mobi.ueliloetscher.learning.usermanagement.entity;
 
-import ch.mobi.ueliloetscher.learning.usermanagement.validation.datetime.ValidDateTime;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
-public class UserReadDTO implements Serializable {
+@Entity
+public class User implements Serializable {
 
-    @NotNull
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String firstName;
-    @NotBlank(message = "lastName is required")
     private String lastName;
-    @Email(message = "email is required")
     private String email;
-    @ValidDateTime
     private String modified;
 
-    public UserReadDTO() {
+    public User() {
+
     }
 
-    public UserReadDTO(Long id, String firstName, String lastName, String email, String modified) {
+    public User(Long id, String firstName, String lastName, String email, String modified) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -69,6 +71,5 @@ public class UserReadDTO implements Serializable {
     public void setModified(String modified) {
         this.modified = modified;
     }
-
 
 }

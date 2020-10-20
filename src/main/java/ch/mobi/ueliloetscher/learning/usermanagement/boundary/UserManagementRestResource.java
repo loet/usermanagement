@@ -32,7 +32,7 @@ public class UserManagementRestResource implements Serializable {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUser(@PathParam("id") String id) {
+    public Response getUser(@PathParam("id") Long id) {
         UserReadDTO user = this.userManagementBean.getUser(id);
         if (user == null) {
             return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("user not found with id " + id)).build();

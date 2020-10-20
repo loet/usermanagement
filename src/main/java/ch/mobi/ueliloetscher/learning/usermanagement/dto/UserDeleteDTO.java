@@ -1,25 +1,26 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class UserDeleteDTO implements Serializable {
 
-    @NotBlank(message = "id is required")
-    private String id;
+    @NotNull(message = "id is required")
+    private Long id;
 
     public UserDeleteDTO() {
     }
 
-    public UserDeleteDTO(String id) {
+    public UserDeleteDTO(Long id) {
         this.id = id;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }
