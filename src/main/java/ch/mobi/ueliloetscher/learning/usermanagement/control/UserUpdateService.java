@@ -22,6 +22,9 @@ public class UserUpdateService {
 
     public UserReadDTO updateUser(UserUpdateDTO userUpdateDTO) {
         User user = em.find(User.class, userUpdateDTO.getId());
+        if (user == null) {
+            return null;
+        }
         try {
             PropertyUtils.copyProperties(user, userUpdateDTO);
             String modified = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
