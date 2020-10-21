@@ -14,10 +14,13 @@ public class UserReadDTO implements Serializable {
     private String firstName;
     @NotBlank(message = "lastName is required")
     private String lastName;
-    @Email(message = "email is required")
+    @Email(message = "a valid email is required")
+    @NotBlank(message = "email is required")
     private String email;
     @ValidDateTime
     private String modified;
+    @NotBlank(message = "UUID is required")
+    private String UUID;
 
     public UserReadDTO() {
     }
@@ -70,5 +73,11 @@ public class UserReadDTO implements Serializable {
         this.modified = modified;
     }
 
+    public String getUUID() {
+        return UUID;
+    }
 
+    public void setUUID(String UUID) {
+        this.UUID = UUID;
+    }
 }

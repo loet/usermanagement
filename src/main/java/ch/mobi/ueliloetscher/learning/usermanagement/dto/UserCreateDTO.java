@@ -10,6 +10,7 @@ public class UserCreateDTO implements Serializable {
     @NotBlank(message = "lastName is required")
     private String lastName;
     @Email(message = "a valid email address is required")
+    @NotBlank(message = "email is required")
     private String email;
 
     public UserCreateDTO() {

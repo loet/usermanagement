@@ -1,8 +1,11 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.boundary;
 
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.*;
+import ch.mobi.ueliloetscher.learning.usermanagement.validation.RestValidationInterceptor;
+import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationException;
 
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -10,6 +13,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Path("users")
+@Interceptors(RestValidationInterceptor.class)
 public class UserManagementRestResource implements Serializable {
 
     @Inject

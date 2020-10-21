@@ -21,7 +21,7 @@ public class UserSearchService {
     private EntityManager em;
 
     public Collection<UserReadDTO> getAllUsers() {
-        Query query = em.createQuery("SELECT u FROM User u");
+        Query query = em.createQuery("SELECT u FROM Usertable u");
         Collection<User> allUsers = (Collection<User>) query.getResultList();
         Collection<UserReadDTO> allUsersDTO = new ArrayList<UserReadDTO>();
         try {

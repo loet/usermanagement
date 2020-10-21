@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-@Entity
+@Entity(name = "Usertable")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -19,17 +19,19 @@ public class User implements Serializable {
     private String lastName;
     private String email;
     private String modified;
+    private String UUID;
 
     public User() {
 
     }
 
-    public User(Long id, String firstName, String lastName, String email, String modified) {
+    public User(Long id, String firstName, String lastName, String email, String modified, String UUID) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.modified = modified;
+        this.UUID = UUID;
     }
 
     public Long getId() {
@@ -72,4 +74,11 @@ public class User implements Serializable {
         this.modified = modified;
     }
 
+    public String getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(String UUID) {
+        this.UUID = UUID;
+    }
 }

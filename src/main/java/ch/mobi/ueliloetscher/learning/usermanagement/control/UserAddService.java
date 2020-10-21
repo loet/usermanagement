@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @ApplicationScoped
 public class UserAddService {
@@ -24,6 +25,7 @@ public class UserAddService {
             PropertyUtils.copyProperties(user, userCreateDTO);
             String modified = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             user.setModified(modified);
+            user.setUUID(UUID.randomUUID().toString());
             em.persist(user);
             UserReadDTO createdUser = new UserReadDTO();
             PropertyUtils.copyProperties(createdUser, user);

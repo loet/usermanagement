@@ -5,13 +5,16 @@ import ch.mobi.ueliloetscher.learning.usermanagement.dto.UserCreateDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.UserDeleteDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.UserReadDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.UserUpdateDTO;
+import ch.mobi.ueliloetscher.learning.usermanagement.validation.ConstraintViolationInterceptor;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.validation.Valid;
 import java.util.Collection;
 
 @Stateless
+@Interceptors(ConstraintViolationInterceptor.class)
 public class UserManagementBean {
 
     @Inject
@@ -30,17 +33,14 @@ public class UserManagementBean {
         return this.userSearchService.getAllUsers();
     }
 
-    @Valid
     public UserReadDTO getUser(Long id) {
         return this.userGetService.getUser(id);
     }
 
-    @Valid
     public UserReadDTO addUser(@Valid UserCreateDTO userCreateDTO) {
         return this.userAddService.addUser(userCreateDTO);
     }
 
-    @Valid
     public UserReadDTO updateUser(@Valid UserUpdateDTO userUpdateDTO) {
         return this.userUpdateService.updateUser(userUpdateDTO);
     }

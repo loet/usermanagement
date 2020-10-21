@@ -13,8 +13,13 @@ public class UserUpdateDTO implements Serializable {
     private String firstName;
     @NotBlank(message = "lastName is required")
     private String lastName;
-    @Email(message = "email is required")
+    @Email(message = "a valid email is required")
+    @NotBlank(message = "email is required")
     private String email;
+    @NotBlank(message = "UUID is required")
+    private String UUID;
+    @NotBlank(message = "modified is required for updated")
+    private String modified;
 
     public UserUpdateDTO() {
     }
@@ -58,4 +63,19 @@ public class UserUpdateDTO implements Serializable {
         this.email = email;
     }
 
+    public String getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(String UUID) {
+        this.UUID = UUID;
+    }
+
+    public String getModified() {
+        return modified;
+    }
+
+    public void setModified(String modified) {
+        this.modified = modified;
+    }
 }
