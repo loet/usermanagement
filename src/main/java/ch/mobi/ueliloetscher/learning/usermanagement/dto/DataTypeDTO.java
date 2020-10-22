@@ -2,7 +2,7 @@ package ch.mobi.ueliloetscher.learning.usermanagement.dto;
 
 import java.io.Serializable;
 
-public class FdtDTO implements Serializable {
+public class DataTypeDTO implements Serializable {
     private int codeType;
     private int code;
     private String en;
@@ -12,10 +12,10 @@ public class FdtDTO implements Serializable {
     private String validFrom;
     private String validTo;
 
-    public FdtDTO() {
+    public DataTypeDTO() {
     }
 
-    public FdtDTO(int codeType, int code, String en, String de, String fr, String it, String validFrom, String validTo) {
+    public DataTypeDTO(int codeType, int code, String en, String de, String fr, String it, String validFrom, String validTo) {
         this.codeType = codeType;
         this.code = code;
         this.en = en;

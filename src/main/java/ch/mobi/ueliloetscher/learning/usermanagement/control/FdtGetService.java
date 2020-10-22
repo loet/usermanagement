@@ -2,7 +2,7 @@ package ch.mobi.ueliloetscher.learning.usermanagement.control;
 
 import ch.mobi.ueliloetscher.learning.usermanagement.control.dto.FdtBackendResult;
 import ch.mobi.ueliloetscher.learning.usermanagement.control.dto.FdtCodeWrapper;
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.FdtDTO;
+import ch.mobi.ueliloetscher.learning.usermanagement.dto.DataTypeDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.util.ClientRequest;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ public class FdtGetService {
     @Inject
     private ClientRequest clientRequest;
 
-    public Collection<FdtDTO> getCodes(int codeType) {
+    public Collection<DataTypeDTO> getCodes(int codeType) {
         FdtBackendResult result = getClient()
                 .target("https://b2eapi1-t.mobiliar-int.ch/fdt_v2/rest/v4/bezeichnungen/arten/wertelisten?art="
                         + codeType
@@ -30,11 +30,22 @@ public class FdtGetService {
                 .header("Authorization", clientRequest.getAuthorizationHeader())
                 .get(FdtBackendResult.class);
 
-        Collection<FdtDTO> returnValue = new ArrayList<FdtDTO>();
+        Collection<DataTypeDTO> returnedTypes = new ArrayList<>();
         for (FdtCodeWrapper codeWrapper : result.getResults()) {
-            returnValue.add(new FdtDTO(codeWrapper.getFdtCode().getArt().getArt(), codeWrapper.getFdtCode().getCode(), codeWrapper.getBezeichnung().getBezeichnungDE(), codeWrapper.getBezeichnung().getBezeichnungDE(), codeWrapper.getBezeichnung().getBezeichnungFR(), codeWrapper.getBezeichnung().getBezeichnungIT(), codeWrapper.getFdtCode().getGueltigAb(), codeWrapper.getFdtCode().getGueltigBis()));
+            returnedTypes.add(
+                    new DataTypeDTO(
+                            codeWrapper.getFdtCode().getArt().getArt(),
+                            codeWrapper.getFdtCode().getCode(),
+                            codeWrapper.getBezeichnung().getBezeichnungDE(),
+                            codeWrapper.getBezeichnung().getBezeichnungDE(),
+                            codeWrapper.getBezeichnung().getBezeichnungFR(),
+                            codeWrapper.getBezeichnung().getBezeichnungIT(),
+                            codeWrapper.getFdtCode().getGueltigAb(),
+                            codeWrapper.getFdtCode().getGueltigBis()
+                    )
+            );
         }
-        return returnValue;
+        return returnedTypes;
     }
 
     private Client getClient() {

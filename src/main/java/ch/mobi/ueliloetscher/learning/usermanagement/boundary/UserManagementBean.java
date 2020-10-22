@@ -56,7 +56,7 @@ public class UserManagementBean {
         return this.userDeleteService.deleteUser(userDeleteDTO);
     }
 
-    public Collection<FdtDTO> getCountryCodes() {
+    public Collection<DataTypeDTO> getCountryCodes() {
         return this.fdtGetService.getCodes(400054);
     }
 
