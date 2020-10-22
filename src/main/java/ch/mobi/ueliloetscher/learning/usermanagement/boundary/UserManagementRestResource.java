@@ -2,10 +2,10 @@ package ch.mobi.ueliloetscher.learning.usermanagement.boundary;
 
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.*;
 import ch.mobi.ueliloetscher.learning.usermanagement.validation.RestValidationInterceptor;
-import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationException;
 
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.validation.constraints.Positive;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -73,4 +73,10 @@ public class UserManagementRestResource implements Serializable {
         }
     }
 
+    @GET
+    @Path("/countries")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCountries() {
+        return Response.ok().entity(this.userManagementBean.getCountryCodes()).build();
+    }
 }

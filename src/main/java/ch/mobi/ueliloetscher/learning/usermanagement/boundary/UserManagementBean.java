@@ -1,10 +1,8 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.boundary;
 
+import ch.mobi.ueliloetscher.learning.usermanagement.dto.*;
+import ch.mobi.ueliloetscher.learning.usermanagement.util.ClientRequest;
 import ch.mobi.ueliloetscher.learning.usermanagement.control.*;
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.UserCreateDTO;
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.UserDeleteDTO;
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.UserReadDTO;
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.UserUpdateDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.validation.ConstraintViolationInterceptor;
 
 import javax.ejb.Stateless;
@@ -27,26 +25,39 @@ public class UserManagementBean {
     private UserSearchService userSearchService;
     @Inject
     private UserDeleteService userDeleteService;
+    @Inject
+    private FdtGetService fdtGetService;
+    @Inject
+    ClientRequest clientRequest;
 
 
     public Collection<@Valid UserReadDTO> getAllUsers() {
+        System.out.println("Authorization from bean: " + this.clientRequest.getAuthorizationHeader());
         return this.userSearchService.getAllUsers();
     }
 
     public UserReadDTO getUser(Long id) {
+        System.out.println("Authorization from bean: " + this.clientRequest.getAuthorizationHeader());
         return this.userGetService.getUser(id);
     }
 
     public UserReadDTO addUser(@Valid UserCreateDTO userCreateDTO) {
+        System.out.println("Authorization from bean: " + this.clientRequest.getAuthorizationHeader());
         return this.userAddService.addUser(userCreateDTO);
     }
 
     public UserReadDTO updateUser(@Valid UserUpdateDTO userUpdateDTO) {
+        System.out.println("Authorization from bean: " + this.clientRequest.getAuthorizationHeader());
         return this.userUpdateService.updateUser(userUpdateDTO);
     }
 
     public boolean deleteUser(@Valid UserDeleteDTO userDeleteDTO) {
+        System.out.println("Authorization from bean: " + this.clientRequest.getAuthorizationHeader());
         return this.userDeleteService.deleteUser(userDeleteDTO);
+    }
+
+    public Collection<FdtDTO> getCountryCodes() {
+        return this.fdtGetService.getCodes(400054);
     }
 
 }

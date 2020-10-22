@@ -5,6 +5,8 @@
  */
 package ch.mobi.ueliloetscher.learning.usermanagement.boundary;
 
+import ch.mobi.ueliloetscher.learning.usermanagement.util.ClientRequestFilter;
+
 import javax.ws.rs.core.Application;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class ApplicationConfig extends Application {
 
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(UserManagementRestResource.class);
+        resources.add(ClientRequestFilter.class);
     }
 
 }
