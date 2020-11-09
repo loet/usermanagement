@@ -71,7 +71,7 @@ public class FdtGetService {
             SSLContext sslContext = SSLContext.getInstance("SSL");
             sslContext.init(null, trustManager, null);
 
-            Client client = ClientBuilder.newBuilder().sslContext(sslContext).build();
+            Client client = ClientBuilder.newBuilder().sslContext(sslContext).build(); // ClientBuilder.newClient();
             return client;
         } catch (Exception e) {
             throw new RuntimeException(e);
