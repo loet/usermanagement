@@ -29,7 +29,7 @@ public class UserUpdateService {
             PropertyUtils.copyProperties(user, userUpdateDTO);
             String modified = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             user.setModified(modified);
-            em.persist(user);
+            // em.persist(user);
             UserReadDTO userReadDTO = new UserReadDTO();
             PropertyUtils.copyProperties(userReadDTO, user);
             return userReadDTO;
