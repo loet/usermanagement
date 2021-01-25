@@ -22,6 +22,7 @@ public class ApplicationConfig extends Application {
 
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(UserManagementRestResource.class);
+        resources.add(EmployeeManagementBean.class);
         resources.add(ClientRequestFilter.class);
     }
 

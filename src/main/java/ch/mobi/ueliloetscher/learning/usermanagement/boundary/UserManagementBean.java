@@ -5,16 +5,23 @@ import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
 import ch.mobi.ueliloetscher.learning.usermanagement.util.ClientRequest;
 import ch.mobi.ueliloetscher.learning.usermanagement.control.*;
 import ch.mobi.ueliloetscher.learning.usermanagement.validation.ConstraintViolationInterceptor;
+import jdk.nashorn.internal.objects.annotations.Getter;
 
 import javax.ejb.*;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.validation.Valid;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
-@Interceptors(ConstraintViolationInterceptor.class)
+// @Interceptors(ConstraintViolationInterceptor.class)
 public class UserManagementBean {
 
     @Inject
@@ -31,16 +38,6 @@ public class UserManagementBean {
     private FdtGetService fdtGetService;
     @Inject
     ClientRequest clientRequest;
-    @Inject
-    private EmployeeAddService employeeAddService;
-    @Inject
-    private EmployeeUpdateService employeeUpdateService;
-    @Inject
-    private EmployeeSearchService employeeSearchService;
-    @Inject
-    private EmployeeGetService employeeGetService;
-    @Inject
-    private EmployeeDeleteService employeeDeleteService;
 
 
     public Collection<@Valid UserReadDTO> getAllUsers() {
@@ -76,31 +73,5 @@ public class UserManagementBean {
         return this.fdtGetService.getCodes(400054);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Employee addEmployee(Employee employee) {
-        return this.employeeAddService.addEmployee(employee);
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Employee updateEmployee(Employee employee) {
-        return this.employeeUpdateService.updateEmployee(employee);
-    }
-
-    public Employee getEmployee(Integer eid) {
-        return this.employeeGetService.getEmployee(eid);
-    }
-
-    public Collection<Employee> getAllEmployees() {
-        return this.employeeSearchService.getAllEmployees();
-    }
-
-    public Collection<Employee> searchEmployees(String ename) {
-        return this.employeeSearchService.searchEmployees(ename);
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public boolean deleteEmployee(Integer eid) {
-        return this.employeeDeleteService.deleteEmployee(eid);
-    }
 
 }
