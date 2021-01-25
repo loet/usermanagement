@@ -15,9 +15,9 @@ public class EmployeeUpdateService {
     @PersistenceContext(unitName = "usermanagement", type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
-    public Employee updateEmployee(Employee employeeUpdate) {
+    public Employee updateEmployee(int eid, Employee employeeUpdate) {
         employeeUpdate.setEname_search(employeeUpdate.getEname().toLowerCase());
-        Employee existing = this.em.find(Employee.class, employeeUpdate.getEid());
+        Employee existing = this.em.find(Employee.class, eid);
         if (existing == null) {
             return null;
         }

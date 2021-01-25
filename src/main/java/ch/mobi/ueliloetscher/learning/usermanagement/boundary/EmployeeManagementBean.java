@@ -42,8 +42,9 @@ public class EmployeeManagementBean {
     public Response getEmployee(@PathParam("eid") Integer eid) {
         Employee employee = this.employeeGetService.getEmployee(eid);
         if (employee == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build();
+            // return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build();
             // throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build());
+            throw new NotFoundException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build());
         }
         return Response.ok(employee).build();
     }
@@ -55,11 +56,13 @@ public class EmployeeManagementBean {
     }
 
     @PUT
+    @Path("/{eid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateEmployee(Employee employee) {
-        Employee updated = this.employeeUpdateService.updateEmployee(employee);
+    public Response updateEmployee(@PathParam("eid") Integer eid, Employee employee) {
+        Employee updated = this.employeeUpdateService.updateEmployee(eid, employee);
         if (updated == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with id " + employee.getEid())).build();
+            // return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with id " + employee.getEid())).build();
+            throw new NotFoundException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + employee.getEid())).build());
         }
         return Response.ok(updated).build();
     }
@@ -71,7 +74,8 @@ public class EmployeeManagementBean {
         if (this.employeeDeleteService.deleteEmployee(eid)) {
             return Response.ok().build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with id " + eid)).build();
+            throw new NotFoundException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build());
+            // return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with id " + eid)).build();
         }
     }
 
