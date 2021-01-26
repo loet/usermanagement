@@ -11,6 +11,8 @@ import java.util.List;
 @NamedQuery(query = "Select e from Employee e where e.ename_search like lower(concat('%', :ename,'%')) ", name="search employees by ename")
 public class Employee implements Serializable {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int eid;

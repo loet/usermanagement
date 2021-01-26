@@ -21,4 +21,8 @@ public class CollectionWrapper implements Serializable {
     public void setData(Collection data) {
         this.data = data;
     }
+
+    public String toString() {
+        return "data: " + getData().toString();
+    }
 }
