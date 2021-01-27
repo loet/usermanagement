@@ -8,12 +8,14 @@ public class RestValidationInterceptor {
 
     @AroundInvoke
     public Object log(final InvocationContext context) throws Exception {
+        System.out.println("***************RestValidationInterceptor called");
         try {
             return context.proceed();
         } catch (RuntimeException ex) {
             if (ex.getCause() != null && ex.getCause().getCause() instanceof ValidationException) {
                 ValidationException valEx = (ValidationException) ex.getCause().getCause();
-                return Response.status(Response.Status.NOT_ACCEPTABLE).entity(new ViolationMessageDTO(valEx.getMessages())).build();
+                // return Response.status(Response.Status.NOT_ACCEPTABLE).entity(new ViolationMessageDTO(valEx.getMessages())).build();
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             } else {
                 throw ex;
             }

@@ -4,15 +4,15 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.validation.ConstraintViolationException;
 
-public class ConstraintViolationInterceptor {
+public class ValidationInterceptor {
 
     @AroundInvoke
-    public Object extractConstraintViolations(final InvocationContext context) throws Exception {
-        System.out.println("ConstraintViolationInterceptor called");
+    public Object intercept(InvocationContext ctx) throws Exception {
         try {
-            return context.proceed();
+            return ctx.proceed();
         } catch (ConstraintViolationException ex) {
             throw new ValidationException(ex.getConstraintViolations());
         }
     }
+
 }

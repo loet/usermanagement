@@ -1,27 +1,30 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.validation;
 
 import javax.validation.ConstraintViolation;
-import java.util.ArrayList;
-import java.util.Collection;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.core.Response;
+import java.io.Serializable;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public class ValidationException extends Exception {
-
-    private Set<ConstraintViolation<?>> violations;
+public class ValidationException extends BadRequestException {
 
     public ValidationException(Set<ConstraintViolation<?>> violations) {
-        this.violations = violations;
+        super(
+                Response.status(Response.Status.BAD_REQUEST)
+                        .entity(
+                                violations.stream()
+                                        .map(violation ->
+                                                new MessageWrapper(
+                                                        violation.getMessage(),
+                                                        violation.getPropertyPath().toString()
+                                                )
+                                        )
+                                        .collect(Collectors.toList())
+                        )
+                        .build()
+        );
     }
 
-    public Set<ConstraintViolation<?>> getViolations() {
-        return violations;
-    }
 
-    public Collection<String> getMessages() {
-        Collection<String> messages = new ArrayList<String>();
-        for (ConstraintViolation violation : this.violations) {
-            messages.add(violation.getMessage());
-        }
-        return messages;
-    }
 }

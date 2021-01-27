@@ -1,6 +1,7 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +9,8 @@ import java.util.List;
 @Entity
 @Table
 //@NamedQuery(query = "Select e from Employee e where e.ename like :ename ", name="search employees by ename")
-@NamedQuery(query = "Select e from Employee e where e.ename_search like lower(concat('%', :ename,'%')) ", name="search employees by ename")
+@NamedQuery(query = "Select e from Employee e where e.ename_search like lower(concat('%', :ename,'%')) ", name = "search employees by ename")
 public class Employee implements Serializable {
-
 
 
     @Id
@@ -28,18 +28,18 @@ public class Employee implements Serializable {
     private List<Skill> skills = new ArrayList<>();
 
     public Employee(int eid, String ename, double salary, String deg) {
-        super( );
+        super();
         this.eid = eid;
         this.ename = ename;
         this.salary = salary;
         this.deg = deg;
     }
 
-    public Employee( ) {
+    public Employee() {
         super();
     }
 
-    public int getEid( ) {
+    public int getEid() {
         return eid;
     }
 
@@ -47,7 +47,7 @@ public class Employee implements Serializable {
         this.eid = eid;
     }
 
-    public String getEname( ) {
+    public String getEname() {
         return ename;
     }
 
@@ -63,7 +63,7 @@ public class Employee implements Serializable {
         this.ename_search = ename_search;
     }
 
-    public double getSalary( ) {
+    public double getSalary() {
         return salary;
     }
 
@@ -71,7 +71,7 @@ public class Employee implements Serializable {
         this.salary = salary;
     }
 
-    public String getDeg( ) {
+    public String getDeg() {
         return deg;
     }
 

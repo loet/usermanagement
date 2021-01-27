@@ -1,18 +1,24 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.boundary;
 
 import ch.mobi.ueliloetscher.learning.usermanagement.control.*;
+import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddEmployeeDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.CollectionWrapper;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.MessageDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
+import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationException;
+import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationInterceptor;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Stateless
 @Path("/employee")
+@Interceptors({ValidationInterceptor.class})
 public class EmployeeManagementBean {
 
     @Inject
@@ -51,8 +57,8 @@ public class EmployeeManagementBean {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addEmployee(Employee employee) {
-        return Response.ok(this.employeeAddService.addEmployee(employee)).build();
+    public Response addEmployee(AddEmployeeDTO addEmployeeDTO) throws ValidationException {
+        return Response.ok(this.employeeAddService.addEmployee(addEmployeeDTO)).build();
     }
 
     @PUT

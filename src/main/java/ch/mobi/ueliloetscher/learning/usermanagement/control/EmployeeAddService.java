@@ -1,5 +1,6 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.control;
 
+import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddEmployeeDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Department;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Skill;
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,30 +26,39 @@ public class EmployeeAddService {
     @PersistenceContext(unitName = "usermanagement", type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
-    public Employee addEmployee(Employee employee) {
-        employee.setEname_search(employee.getEname().toLowerCase());
+    public Employee addEmployee(@Valid AddEmployeeDTO addEmployeeDTO) {
+        Employee employee = new Employee();
+        employee.setEname(addEmployeeDTO.getEname());
+        employee.setDeg(addEmployeeDTO.getDeg());
+        employee.setSalary(addEmployeeDTO.getSalary());
+        employee.setEname_search(addEmployeeDTO.getEname().toLowerCase());
 
         // handle department
-        Department department = this.departmentService.searchDepartment(employee.getDepartment().getName());
+        Department department = this.departmentService.searchDepartment(addEmployeeDTO.getDepartment().getName());
         if (department == null) {
-            department = this.departmentService.addDepartment(employee.getDepartment());
+            department = new Department();
+            department.setName(addEmployeeDTO.getDepartment().getName());
+            this.departmentService.addDepartment(department);
         }
         employee.setDepartment(department);
 
         //handle skills
         List<Skill> skills = new ArrayList<>();
-        employee.getSkills().stream()
-                .forEach(skill -> {
-                    Skill foundSkill = this.skillService.searchSkill(skill.getSkill());
-                    if (foundSkill == null) {
-                        foundSkill = this.skillService.addSkill(skill);
+        addEmployeeDTO.getSkills().stream()
+                .forEach(skillDTO -> {
+                    Skill skill = this.skillService.searchSkill(skillDTO.getSkill());
+                    if (skill == null) {
+                        skill = new Skill();
+                        skill.setSkill(skillDTO.getSkill());
+                        this.skillService.addSkill(skill);
                     }
-                    skills.add(foundSkill);
+                    skills.add(skill);
                 });
         employee.setSkills(skills);
 
         //store employee
         em.persist(employee);
+
         return employee;
     }
 
