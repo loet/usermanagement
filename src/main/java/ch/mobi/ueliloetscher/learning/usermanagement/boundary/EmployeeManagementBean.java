@@ -1,7 +1,6 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.boundary;
 
 import ch.mobi.ueliloetscher.learning.usermanagement.control.*;
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddEmployeeDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.CollectionWrapper;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.MessageDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
@@ -11,7 +10,6 @@ import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationInterc
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

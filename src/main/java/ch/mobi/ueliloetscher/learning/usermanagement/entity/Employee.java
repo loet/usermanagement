@@ -1,8 +1,5 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.entity;
 
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddDepartmentDTO;
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddSkillDTO;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -11,7 +8,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 @Entity
 @Table

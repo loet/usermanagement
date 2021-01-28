@@ -1,6 +1,5 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.control;
 
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddEmployeeDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Department;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Skill;
@@ -11,8 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @ApplicationScoped
 public class EmployeeAddService {
