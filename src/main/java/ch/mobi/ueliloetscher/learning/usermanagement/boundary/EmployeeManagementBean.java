@@ -8,6 +8,8 @@ import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationExcept
 import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationInterceptor;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
@@ -55,17 +57,18 @@ public class EmployeeManagementBean {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response addEmployee(Employee employee) throws ValidationException {
-        return Response.ok(this.employeeAddService.addEmployee(employee)).build();
+        return Response.status(Response.Status.CREATED).entity(this.employeeAddService.addEmployee(employee)).build();
     }
 
     @PUT
     @Path("/{eid}")
     @Produces(MediaType.APPLICATION_JSON)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response updateEmployee(@PathParam("eid") Integer eid, Employee employee) {
         Employee updated = this.employeeUpdateService.updateEmployee(eid, employee);
         if (updated == null) {
-            // return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with id " + employee.getEid())).build();
             throw new NotFoundException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + employee.getEid())).build());
         }
         return Response.ok(updated).build();
@@ -74,9 +77,10 @@ public class EmployeeManagementBean {
     @DELETE
     @Path("/{eid}")
     @Produces(MediaType.APPLICATION_JSON)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response deleteEmployee(@PathParam("eid") Integer eid) {
         if (this.employeeDeleteService.deleteEmployee(eid)) {
-            return Response.ok().build();
+            return Response.status(Response.Status.NO_CONTENT).build();
         } else {
             throw new NotFoundException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build());
             // return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with id " + eid)).build();
