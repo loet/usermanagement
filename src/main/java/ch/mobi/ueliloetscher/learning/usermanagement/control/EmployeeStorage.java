@@ -31,6 +31,7 @@ public class EmployeeStorage {
         if (persistentDepartment != null) {
             employee.getDepartment().setDid(persistentDepartment.getDid());
         } else {
+            employee.getDepartment().setDid(null);
             this.departmentService.addDepartment(employee.getDepartment());
         }
 
@@ -41,6 +42,7 @@ public class EmployeeStorage {
                     if (persistentSkill != null) {
                         skill.setId(persistentSkill.getId());
                     } else {
+                        skill.setId(null);
                         this.skillService.addSkill(skill);
                     }
                 });

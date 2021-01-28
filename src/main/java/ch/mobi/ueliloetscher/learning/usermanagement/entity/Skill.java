@@ -10,7 +10,7 @@ public class Skill implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     private String skill;
 
@@ -21,16 +21,16 @@ public class Skill implements Serializable {
         this.skill = skill;
     }
 
-    public Skill(int id, String skill) {
+    public Skill(Integer id, String skill) {
         this.id = id;
         this.skill = skill;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
