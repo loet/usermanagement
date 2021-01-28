@@ -24,6 +24,7 @@ public class EmployeeAddService {
     private EntityManager em;
 
     public Employee addEmployee(@Valid Employee employee) {
+        // set lowercase name for search statements
         employee.setEname_search(employee.getEname().toLowerCase());
 
         // handle department
@@ -50,43 +51,5 @@ public class EmployeeAddService {
 
         return employee;
     }
-/*
-    public Employee addEmployeeWithDTO(@Valid AddEmployeeDTO addEmployeeDTO) {
-        Employee employee = new Employee();
-        employee.setEname(addEmployeeDTO.getEname());
-        employee.setDeg(addEmployeeDTO.getDeg());
-        employee.setSalary(addEmployeeDTO.getSalary());
-        employee.setEname_search(addEmployeeDTO.getEname().toLowerCase());
-
-        // handle department
-        Department department = this.departmentService.searchDepartment(addEmployeeDTO.getDepartment().getName());
-        if (department == null) {
-            department = new Department();
-            department.setName(addEmployeeDTO.getDepartment().getName());
-            this.departmentService.addDepartment(department);
-        }
-        employee.setDepartment(department);
-
-        //handle skills
-        List<Skill> skills = new ArrayList<>();
-        addEmployeeDTO.getSkills().stream()
-                .forEach(skillDTO -> {
-                    Skill skill = this.skillService.searchSkill(skillDTO.getSkill());
-                    if (skill == null) {
-                        skill = new Skill();
-                        skill.setSkill(skillDTO.getSkill());
-                        this.skillService.addSkill(skill);
-                    }
-                    skills.add(skill);
-                });
-        employee.setSkills(skills);
-
-        //store employee
-        em.persist(employee);
-
-        return employee;
-    }
-    */
-
 
 }
