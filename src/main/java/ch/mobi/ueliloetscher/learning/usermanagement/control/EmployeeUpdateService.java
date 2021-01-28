@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import javax.validation.Valid;
 import javax.ws.rs.BadRequestException;
 
 @ApplicationScoped
@@ -18,7 +19,7 @@ public class EmployeeUpdateService {
     @PersistenceContext(unitName = "usermanagement", type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
-    public Employee updateEmployee(int eid, Employee employee) throws IllegalArgumentException {
+    public Employee updateEmployee(int eid, @Valid Employee employee) throws IllegalArgumentException {
         if (employee.getEid() != eid) {
             throw new IllegalArgumentException("eid and employee.eid do not match");
         }

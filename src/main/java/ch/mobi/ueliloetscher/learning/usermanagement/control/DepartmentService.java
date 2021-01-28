@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
+import javax.validation.Valid;
 import java.util.List;
 
 @ApplicationScoped
@@ -27,7 +28,7 @@ public class DepartmentService {
         return employees.get(0);
     }
 
-    public Department addDepartment(Department department) {
+    public Department addDepartment(@Valid Department department) {
         em.persist(department);
         return department;
     }
