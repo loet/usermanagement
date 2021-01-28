@@ -26,7 +26,35 @@ public class EmployeeAddService {
     @PersistenceContext(unitName = "usermanagement", type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
-    public Employee addEmployee(@Valid AddEmployeeDTO addEmployeeDTO) {
+    public Employee addEmployee(@Valid Employee employee) {
+        employee.setEname_search(employee.getEname().toLowerCase());
+
+        // handle department
+        Department persistentDepartment = this.departmentService.searchDepartment(employee.getDepartment().getName());
+        if (persistentDepartment != null) {
+            employee.getDepartment().setDid(persistentDepartment.getDid());
+        } else {
+            this.departmentService.addDepartment(employee.getDepartment());
+        }
+
+        //handle skills
+        employee.getSkills().stream()
+                .forEach(skill -> {
+                    Skill persistentSkill = this.skillService.searchSkill(skill.getSkill());
+                    if (persistentSkill != null) {
+                        skill.setId(persistentSkill.getId());
+                    } else {
+                        this.skillService.addSkill(skill);
+                    }
+                });
+
+        //store employee
+        em.persist(employee);
+
+        return employee;
+    }
+/*
+    public Employee addEmployeeWithDTO(@Valid AddEmployeeDTO addEmployeeDTO) {
         Employee employee = new Employee();
         employee.setEname(addEmployeeDTO.getEname());
         employee.setDeg(addEmployeeDTO.getDeg());
@@ -61,5 +89,7 @@ public class EmployeeAddService {
 
         return employee;
     }
+    */
+
 
 }

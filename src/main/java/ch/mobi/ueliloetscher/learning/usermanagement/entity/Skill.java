@@ -17,6 +17,10 @@ public class Skill implements Serializable {
     public Skill() {
     }
 
+    public Skill(String skill) {
+        this.skill = skill;
+    }
+
     public Skill(int id, String skill) {
         this.id = id;
         this.skill = skill;

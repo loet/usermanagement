@@ -1,10 +1,17 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.entity;
 
+import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddDepartmentDTO;
+import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddSkillDTO;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 @Entity
 @Table
@@ -16,18 +23,23 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int eid;
+    @NotBlank(message = "ename is required")
     private String ename;
     private String ename_search;
-    private double salary;
+    @NotNull(message = "salary required")
+    private BigDecimal salary;
+    @NotBlank(message = "deg is required")
     private String deg;
 
     @ManyToOne
+    @NotNull(message = "department required")
     private Department department;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @NotEmpty(message = "skills required")
     private List<Skill> skills = new ArrayList<>();
 
-    public Employee(int eid, String ename, double salary, String deg) {
+    public Employee(int eid, String ename, BigDecimal salary, String deg) {
         super();
         this.eid = eid;
         this.ename = ename;
@@ -63,11 +75,11 @@ public class Employee implements Serializable {
         this.ename_search = ename_search;
     }
 
-    public double getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 

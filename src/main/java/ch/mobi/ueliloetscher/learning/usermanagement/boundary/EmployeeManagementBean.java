@@ -57,8 +57,8 @@ public class EmployeeManagementBean {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addEmployee(AddEmployeeDTO addEmployeeDTO) throws ValidationException {
-        return Response.ok(this.employeeAddService.addEmployee(addEmployeeDTO)).build();
+    public Response addEmployee(Employee employee) throws ValidationException {
+        return Response.ok(this.employeeAddService.addEmployee(employee)).build();
     }
 
     @PUT

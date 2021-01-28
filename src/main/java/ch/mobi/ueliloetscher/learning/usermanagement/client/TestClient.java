@@ -1,24 +1,18 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.client;
 
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddDepartmentDTO;
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddEmployeeDTO;
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.AddSkillDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.CollectionWrapper;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Department;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Skill;
 import ch.mobi.ueliloetscher.learning.usermanagement.validation.MessageWrapper;
-import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationException;
 
-import javax.jms.Message;
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class TestClient {
@@ -41,12 +35,12 @@ public class TestClient {
 
         System.out.println(searched);
 
-        AddEmployeeDTO newEmployee = new AddEmployeeDTO();
+        Employee newEmployee = new Employee();
         newEmployee.setEname("Testclient");
-        newEmployee.setSalary(1000.10);
+        newEmployee.setSalary(BigDecimal.valueOf(1000.10));
         newEmployee.setDeg("PhD");
-        newEmployee.getSkills().add(new AddSkillDTO("Programming"));
-        newEmployee.setDepartment(new AddDepartmentDTO("Home Office"));
+        newEmployee.getSkills().add(new Skill("Programming"));
+        newEmployee.setDepartment(new Department("Home Office"));
 
         Employee created = client
                 .target("http://127.0.0.1:8080/usermanagement/rest/employee")
@@ -85,7 +79,7 @@ public class TestClient {
             System.out.println("Status: " + notThere.getStatusInfo());
         }
 
-        AddEmployeeDTO notValidEmployee = new AddEmployeeDTO();
+        Employee notValidEmployee = new Employee();
         try (Response notValid = client
                 .target("http://127.0.0.1:8080/usermanagement/rest/employee")
                 .request(MediaType.APPLICATION_JSON)
