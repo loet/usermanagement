@@ -4,6 +4,7 @@ import ch.mobi.ueliloetscher.learning.usermanagement.control.*;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.CollectionWrapper;
 import ch.mobi.ueliloetscher.learning.usermanagement.dto.MessageDTO;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
+import ch.mobi.ueliloetscher.learning.usermanagement.validation.MessageWrapper;
 import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationException;
 import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationInterceptor;
 
@@ -67,11 +68,15 @@ public class EmployeeManagementBean {
     @Produces(MediaType.APPLICATION_JSON)
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response updateEmployee(@PathParam("eid") Integer eid, Employee employee) {
-        Employee updated = this.employeeUpdateService.updateEmployee(eid, employee);
-        if (updated == null) {
-            throw new NotFoundException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + employee.getEid())).build());
+        try {
+            Employee updated = this.employeeUpdateService.updateEmployee(eid, employee);
+            if (updated == null) {
+                throw new NotFoundException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build());
+            }
+            return Response.ok(updated).build();
+        } catch (IllegalArgumentException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageWrapper(ex.getMessage(), "")).build();
         }
-        return Response.ok(updated).build();
     }
 
     @DELETE
