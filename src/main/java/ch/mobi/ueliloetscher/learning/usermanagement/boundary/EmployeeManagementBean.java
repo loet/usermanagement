@@ -14,6 +14,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -52,6 +53,26 @@ public class EmployeeManagementBean {
             // return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build();
             // throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build());
             throw new NotFoundException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build());
+        }
+        return Response.ok(employee).build();
+    }
+
+    @GET
+    @Path("/slow/{eid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmployeeCached(@PathParam("eid") Integer eid) {
+        Employee employee = this.employeeGetService.getEmployee(eid);
+        if (employee == null) {
+            // return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build();
+            // throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build());
+            throw new NotFoundException(Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build());
+        }
+
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return Response.ok(employee).build();
     }
