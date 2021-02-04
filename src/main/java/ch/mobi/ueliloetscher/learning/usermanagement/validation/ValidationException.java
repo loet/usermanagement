@@ -3,7 +3,6 @@ package ch.mobi.ueliloetscher.learning.usermanagement.validation;
 import javax.validation.ConstraintViolation;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
-import java.io.Serializable;
 import java.util.Set;
 import java.util.stream.Collectors;
 

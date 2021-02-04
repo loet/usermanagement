@@ -29,9 +29,9 @@ public class EmployeeStorage {
         // handle department
         Department persistentDepartment = this.departmentService.searchDepartment(employee.getDepartment().getName());
         if (persistentDepartment != null) {
-            employee.getDepartment().setDid(persistentDepartment.getDid());
+            employee.getDepartment().setId(persistentDepartment.getId());
         } else {
-            employee.getDepartment().setDid(null);
+            employee.getDepartment().setId(null);
             this.departmentService.addDepartment(employee.getDepartment());
         }
 

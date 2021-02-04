@@ -29,7 +29,7 @@ public class TestClient {
 
         CollectionWrapper searched = client
                 .target("http://127.0.0.1:8080/usermanagement/rest/employee")
-                .queryParam("ename", "a")
+                .queryParam("ename", "e")
                 .request(MediaType.APPLICATION_JSON)
                 .get(CollectionWrapper.class);
 
@@ -52,7 +52,7 @@ public class TestClient {
 
         Employee read = client
                 .target("http://127.0.0.1:8080/usermanagement/rest/employee")
-                .path(created.getEid() + "")
+                .path(created.getId() + "")
                 .request(MediaType.APPLICATION_JSON)
                 .get()
                 .readEntity(Employee.class);
@@ -64,7 +64,7 @@ public class TestClient {
         // Response.close() has to be called if without try-with-resources statement
         try (Response delete = client
                 .target("http://127.0.0.1:8080/usermanagement/rest/employee")
-                .path(created.getEid() + "")
+                .path(created.getId() + "")
                 .request(MediaType.APPLICATION_JSON)
                 .delete()) {
             System.out.println("Deleted: " + delete.getStatusInfo());
@@ -73,7 +73,7 @@ public class TestClient {
 
         try (Response notThere = client
                 .target("http://127.0.0.1:8080/usermanagement/rest/employee")
-                .path(created.getEid() + "")
+                .path(created.getId() + "")
                 .request(MediaType.APPLICATION_JSON)
                 .get()) {
             System.out.println("Status: " + notThere.getStatusInfo());

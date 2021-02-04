@@ -1,7 +1,6 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.control;
 
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Department;
-import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;

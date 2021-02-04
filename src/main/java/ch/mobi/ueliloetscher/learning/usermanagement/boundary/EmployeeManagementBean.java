@@ -14,9 +14,9 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
-import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.time.LocalDateTime;
 
 @Stateless
 @Path("/employee")
@@ -33,6 +33,13 @@ public class EmployeeManagementBean {
     private EmployeeGetService employeeGetService;
     @Inject
     private EmployeeDeleteService employeeDeleteService;
+
+    @GET()
+    @Path("/ping")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response ping() {
+        return Response.ok(new MessageDTO(LocalDateTime.now().toString())).build();
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -60,7 +67,7 @@ public class EmployeeManagementBean {
     @GET
     @Path("/slow/{eid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEmployeeCached(@PathParam("eid") Integer eid) {
+    public Response getEmployeeSlow(@PathParam("eid") Integer eid) {
         Employee employee = this.employeeGetService.getEmployee(eid);
         if (employee == null) {
             // return Response.status(Response.Status.NOT_FOUND).entity(new MessageDTO("employee not found with eid " + eid)).build();

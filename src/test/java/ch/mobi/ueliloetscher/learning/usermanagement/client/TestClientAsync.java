@@ -1,15 +1,12 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.client;
 
-import ch.mobi.ueliloetscher.learning.usermanagement.dto.CollectionWrapper;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Department;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Skill;
-import ch.mobi.ueliloetscher.learning.usermanagement.validation.MessageWrapper;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
@@ -22,6 +19,21 @@ public class TestClientAsync {
 
     public static void main(String[] args) {
 
+        Client setupClient = ClientBuilder.newClient();
+        Employee newEmployee = new Employee();
+        newEmployee.setEname("Testclient");
+        newEmployee.setSalary(BigDecimal.valueOf(1000.10));
+        newEmployee.setDeg("PhD");
+        newEmployee.getSkills().add(new Skill("Programming"));
+        newEmployee.setDepartment(new Department("Home Office"));
+
+        Employee created = setupClient
+                .target("http://127.0.0.1:8080/usermanagement/rest/employee")
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(newEmployee))
+                .readEntity(Employee.class);
+
+
         long start = System.currentTimeMillis();
         // System.out.println("Start: " + start);
 
@@ -33,7 +45,7 @@ public class TestClientAsync {
             clients.add(client);
             Future<Response> read = client
                     .target("http://127.0.0.1:8080/usermanagement/rest/employee/slow")
-                    .path("176")
+                    .path(created.getId()+"")
                     .request(MediaType.APPLICATION_JSON)
                     .async()
                     .get();

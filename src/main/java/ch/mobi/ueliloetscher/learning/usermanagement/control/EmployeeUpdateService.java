@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.validation.Valid;
-import javax.ws.rs.BadRequestException;
 
 @ApplicationScoped
 public class EmployeeUpdateService {
@@ -20,7 +19,7 @@ public class EmployeeUpdateService {
     private EntityManager em;
 
     public Employee updateEmployee(int eid, @Valid Employee employee) throws IllegalArgumentException {
-        if (employee.getEid() != eid) {
+        if (employee.getId() != eid) {
             throw new IllegalArgumentException("eid and employee.eid do not match");
         }
 

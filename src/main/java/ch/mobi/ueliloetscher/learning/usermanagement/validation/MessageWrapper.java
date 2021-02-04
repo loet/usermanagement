@@ -1,7 +1,5 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.validation;
 
-import javax.jms.Message;
-import javax.validation.ConstraintViolation;
 import java.io.Serializable;
 
 public class MessageWrapper implements Serializable {

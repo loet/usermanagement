@@ -18,7 +18,7 @@ public class Employee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer eid;
+    private Integer id;
     @NotBlank(message = "ename is required")
     private String ename;
     private String ename_search;
@@ -35,9 +35,9 @@ public class Employee implements Serializable {
     @NotEmpty(message = "skills required")
     private List<Skill> skills = new ArrayList<>();
 
-    public Employee(Integer eid, String ename, BigDecimal salary, String deg) {
+    public Employee(Integer id, String ename, BigDecimal salary, String deg) {
         super();
-        this.eid = eid;
+        this.id = id;
         this.ename = ename;
         this.salary = salary;
         this.deg = deg;
@@ -47,12 +47,12 @@ public class Employee implements Serializable {
         super();
     }
 
-    public Integer getEid() {
-        return eid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEid(Integer eid) {
-        this.eid = eid;
+    public void setId(Integer eid) {
+        this.id = eid;
     }
 
     public String getEname() {
@@ -105,6 +105,6 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "Employee [eid=" + eid + ", ename=" + ename + ", salary=" + salary + ", deg=" + deg + "]";
+        return "Employee [id=" + id + ", ename=" + ename + ", salary=" + salary + ", deg=" + deg + "]";
     }
 }

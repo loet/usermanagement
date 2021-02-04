@@ -1,6 +1,5 @@
 package ch.mobi.ueliloetscher.learning.usermanagement.control;
 
-import ch.mobi.ueliloetscher.learning.usermanagement.entity.Department;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Skill;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -18,7 +17,6 @@ public class SkillService {
 
     public Skill searchSkill(String skill) {
         Query query = em.createNamedQuery("search skill");
-
         query.setParameter("skill", skill);
         List<Skill> skills = query.getResultList();
         if (skills.size() < 1) {

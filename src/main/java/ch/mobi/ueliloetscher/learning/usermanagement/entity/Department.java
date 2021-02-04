@@ -10,7 +10,7 @@ public class Department implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer did;
+    private Integer id;
     private String name;
 
     public Department() {
@@ -20,17 +20,17 @@ public class Department implements Serializable {
         this.name = name;
     }
 
-    public Department(Integer did, String name) {
-        this.did = did;
+    public Department(Integer id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public Integer getDid() {
-        return did;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDid(Integer did) {
-        this.did = did;
+    public void setId(Integer did) {
+        this.id = did;
     }
 
     public String getName() {

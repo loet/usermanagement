@@ -3,7 +3,10 @@ package ch.mobi.ueliloetscher.learning.usermanagement.control;
 import ch.mobi.ueliloetscher.learning.usermanagement.entity.Employee;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.persistence.Query;
 import java.util.Collection;
 import java.util.List;
 
