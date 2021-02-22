@@ -10,6 +10,3 @@ Call RestAPIs:
 Postman: jee-learning.postman_collection.json
 
 run java client programs (see src/test/java) (those are NOT Unittests, just for demonstration purpose!!!)
-
-
-[]: https://jee-learning.postman_collection.json.html
