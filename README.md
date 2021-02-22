@@ -1,8 +1,5 @@
 Install docker: https://docs.docker.com/docker-for-mac/install/
 
-Get project code:
-git clone https://github.com/loet/usermanagement.git
-
 Start docker container: ./start.sh
 Deploy application: ./deploy.sh
 Stop docker container: ./stop.sh
