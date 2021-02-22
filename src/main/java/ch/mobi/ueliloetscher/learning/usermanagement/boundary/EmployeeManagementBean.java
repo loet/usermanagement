@@ -8,17 +8,16 @@ import ch.mobi.ueliloetscher.learning.usermanagement.validation.MessageWrapper;
 import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationException;
 import ch.mobi.ueliloetscher.learning.usermanagement.validation.ValidationInterceptor;
 
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 
-@Stateless
+@ApplicationScoped
 @Path("/employee")
 @Interceptors({ValidationInterceptor.class})
 public class EmployeeManagementBean {
@@ -86,7 +85,7 @@ public class EmployeeManagementBean {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(Transactional.TxType.REQUIRED)
     public Response addEmployee(Employee employee) throws ValidationException {
         return Response.status(Response.Status.CREATED).entity(this.employeeAddService.addEmployee(employee)).build();
     }
@@ -94,7 +93,7 @@ public class EmployeeManagementBean {
     @PUT
     @Path("/{eid}")
     @Produces(MediaType.APPLICATION_JSON)
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(Transactional.TxType.REQUIRED)
     public Response updateEmployee(@PathParam("eid") Integer eid, Employee employee) {
         try {
             Employee updated = this.employeeUpdateService.updateEmployee(eid, employee);
@@ -110,7 +109,7 @@ public class EmployeeManagementBean {
     @DELETE
     @Path("/{eid}")
     @Produces(MediaType.APPLICATION_JSON)
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(Transactional.TxType.REQUIRED)
     public Response deleteEmployee(@PathParam("eid") Integer eid) {
         if (this.employeeDeleteService.deleteEmployee(eid)) {
             return Response.status(Response.Status.NO_CONTENT).build();
